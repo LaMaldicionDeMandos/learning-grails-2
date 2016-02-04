@@ -2,7 +2,7 @@ package org.pasut.learning.grails
 
 class Profile {
 
-	static belongsTo = User	//Cascada, si se borra un User, se borra el Profile
+	static belongsTo = User	
 
 	byte[] photo
 	String fullName
@@ -13,14 +13,14 @@ class Profile {
 	String country
 	String jabberAddress
 
-	static {
+	static constraints = {
 		fullName(nullable: true)
 		bio(nullable: true, maxSize: 1000)
 		homepage(nullable: true, url: true)
-		meail(nullable: true, email: true)
+		email(nullable: true, email: true)
 		photo(nullable: true)
 		country(nullable: true)
 		timezone(nullable: true)
-		jabberAddress(nullable: true, email: true)
-	}
+		jabberAddress(nullable: true, email: true)	
+	}	
 }
