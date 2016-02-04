@@ -9,4 +9,8 @@ class Post {
     static constraints = {
     	content(black: false)
     }
+
+    static mappings = {
+    	sort dateCreated:'desc'
+    }
 }

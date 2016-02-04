@@ -19,5 +19,6 @@ class User {
 
 	static mapping = {
 		profile lazy: false
+		posts sort: 'dateCreated'
 	}
 }
