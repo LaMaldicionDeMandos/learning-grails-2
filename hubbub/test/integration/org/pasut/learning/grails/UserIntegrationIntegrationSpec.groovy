@@ -11,15 +11,15 @@ class UserIntegrationIntegrationSpec extends IntegrationSpec {
     }
 
     void "when save an user should save in the database"() {
-    	def user = new User(userId: 'Marcelo', password: 'pass', homepage: 'bla')
+    	def user = new User(userId: 'Marcelo1', password: 'passss')
     	expect: user.save()
     	and: user.id
     	def saved = User.get(user.id)
-    	and: 'Marcelo'.equals saved.userId
+    	and: 'Marcelo1'.equals saved.userId
     }
 
     void "when modify an user should save in the database"() {
-    	def user = new User(userId: 'Marcelo', password: 'pass', homepage: 'bla')
+    	def user = new User(userId: 'Marcelo2', password: 'passss')
     	user.save()
     	def saved = User.get(user.id)
     	saved.password = 'blabla'
@@ -29,11 +29,22 @@ class UserIntegrationIntegrationSpec extends IntegrationSpec {
     }
 
     void "when delete an user should delete in the database"() {
-    	def user = new User(userId: 'Marcelo', password: 'pass', homepage: 'bla')
+    	def user = new User(userId: 'Marcelo3', password: 'passss')
     	expect: user.save()
     	and: user.id
     	def saved = User.get(user.id)
     	saved.delete(flush: true)
     	and: !User.exists(user.id)
+    }
+
+    void "should validate constraints"() {
+        def user = new User(userId: 'Marcelo3', password: 'pass', homepage: 'nada')
+        expect: !user.validate()
+        and: user.hasErrors()
+        def errors = user.errors
+        and: 'size.toosmall'.equals errors.getFieldError('password').code
+        and: 'pass'.equals errors.getFieldError('password').rejectedValue
+        and: 'url.invalid'.equals errors.getFieldError('homepage').code
+        and: 'nada'.equals errors.getFieldError('homepage').rejectedValue
     }
 }
