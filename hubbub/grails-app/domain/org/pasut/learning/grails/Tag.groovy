@@ -10,5 +10,5 @@ class Tag {
 
     static hasMany = [posts: Post]
 
-    static belongsTo = [User, Post] //La tag depende de los usuarios y los Post
+    static belongsTo = [User, Post] //Esto dice que User y Post tienen el metodo addToTags.
 }
