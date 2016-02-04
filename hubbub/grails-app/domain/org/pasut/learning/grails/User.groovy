@@ -8,7 +8,7 @@ class User {
 
 	static constraints = {
 		userId(size: 3..20, unique: true)
-		password(size: 6..8)
+		password(size: 6..8, validator: {pass, user -> pass != user.userId})
 		homepage(url: true, nullable: true)
 	}
 }

@@ -47,4 +47,12 @@ class UserIntegrationIntegrationSpec extends IntegrationSpec {
         and: 'url.invalid'.equals errors.getFieldError('homepage').code
         and: 'nada'.equals errors.getFieldError('homepage').rejectedValue
     }
+
+        void "should validate password is not equals than userId"() {
+        def user = new User(userId: 'Marcelo4', password: 'Marcelo4')
+        expect: !user.validate()
+        and: user.hasErrors()
+        def errors = user.errors
+        and: 'validator.invalid'.equals errors.getFieldError('password').code
+    }
 }
