@@ -10,6 +10,8 @@ class UserIntegrationIntegrationSpec extends IntegrationSpec {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "when save an user should save in the database"() {
+    	def user = new User(userId: 'Marcelo', password: 'pass', homepage: 'bla')
+    	expect: user.save()
     }
 }
