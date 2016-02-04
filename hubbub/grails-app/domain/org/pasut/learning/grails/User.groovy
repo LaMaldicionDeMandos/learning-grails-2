@@ -14,4 +14,8 @@ class User {
 		dateCreated()
 		profile(nullable: true)
 	}
+
+	static mapping = {
+		profile lazy: false
+	}
 }
