@@ -30,7 +30,8 @@
 /web-app/plugins
 
 # "temporary" build files
-/target
+**/target/
+
 
 # Mac
 .DS_Store
