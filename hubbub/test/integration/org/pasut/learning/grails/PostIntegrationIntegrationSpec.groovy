@@ -17,5 +17,6 @@ class PostIntegrationIntegrationSpec extends IntegrationSpec {
     	def post2 = new Post(content:'Second post')
     	user.addToPosts post2
     	expect: 2 == User.get(user.id).posts.size()
+    	and: ['First post', 'Second post'].equals(user.posts.collect({ it.content}).sort())
     }
 }
