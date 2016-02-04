@@ -27,4 +27,13 @@ class UserIntegrationIntegrationSpec extends IntegrationSpec {
     	def modif = User.get(user.id)
     	expect: 'blabla'.equals modif.password
     }
+
+    void "when delete an user should delete in the database"() {
+    	def user = new User(userId: 'Marcelo', password: 'pass', homepage: 'bla')
+    	expect: user.save()
+    	and: user.id
+    	def saved = User.get(user.id)
+    	saved.delete(flush: true)
+    	and: !User.exists(user.id)
+    }
 }
