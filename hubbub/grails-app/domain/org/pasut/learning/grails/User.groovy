@@ -1,7 +1,8 @@
 package org.pasut.learning.grails
 
 class User {
-
-    static constraints = {
-    }
+	String userId
+	String password
+	String homepage
+	Date dateCreated
 }
