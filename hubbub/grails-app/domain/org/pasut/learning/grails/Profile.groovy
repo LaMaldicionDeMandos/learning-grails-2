@@ -22,5 +22,9 @@ class Profile {
 		country(nullable: true)
 		timezone(nullable: true)
 		jabberAddress(nullable: true, email: true)	
-	}	
+	}
+
+	String toString() {
+		"Profile for ${fullName} (${id})"
+	}
 }
