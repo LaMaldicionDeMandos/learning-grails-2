@@ -1,6 +1,5 @@
 package org.pasut.learning.grails
 
 class TagController {
-
-    def index() { }
+    def scaffold = true
 }
