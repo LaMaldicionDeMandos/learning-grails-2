@@ -25,4 +25,19 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
         def profiles = Profile.findAllByEmailIsNotNull()
         and: 1.equals profiles.size()
     }
+
+    void "test query by example"() {
+        new User(userId: 'glen', password: 'password').save()
+        new User(userId: 'peter', password: 'password').save()
+        new User(userId: 'cynthia', password: 'sesame').save()
+        def userToFind1 = new User(userId: 'glen')
+        def userToFind2 = new User(userId: 'cynthia')
+        def userToFind3 = new User(password: 'password')
+        def u1 = User.find(userToFind1)
+        def u2 = User.find(userToFind2)
+        def u3 = User.findAll(userToFind3)
+        expect: 'password'.equals u1.password
+        and: 'cynthia'.equals u2.userId
+        and: ['glen', 'peter'].equals u3*.userId
+    }
 }
