@@ -65,7 +65,7 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
         expect: 2 == c
     }
 
-    void "test criterias"() {
+    void "test criterias list"() {
         def user = new User(userId: 'glen', password: 'password').save()
         def post = new Post(content: 'Bla', dateCreated: new Date())
         def tag = new Tag(name: 'grails')
@@ -88,5 +88,79 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
         }
 
         expect: [post].equals posts
+    }
+
+    void "test criterias get"() {
+        def user = new User(userId: 'glen', password: 'password').save()
+        def post = new Post(content: 'Bla', dateCreated: new Date())
+        def tag = new Tag(name: 'grails')
+
+        post.addToTags tag
+        user.addToPosts post
+        user.addToTags tag
+
+        def criteria = Post.createCriteria()
+        def result = criteria.get {
+            and {
+                eq('user', user)
+                between('dateCreated', new Date() - 1, new Date() + 1)
+                tags {
+                    eq('name', 'grails')
+                }
+            }
+            maxResults(10)
+            order('dateCreated', 'desc')
+        }
+
+        expect: post.equals result
+    }
+
+    void "test criterias count"() {
+        def user = new User(userId: 'glen', password: 'password').save()
+        def post = new Post(content: 'Bla', dateCreated: new Date())
+        def tag = new Tag(name: 'grails')
+
+        post.addToTags tag
+        user.addToPosts post
+        user.addToTags tag
+
+        def criteria = Post.createCriteria()
+        def result = criteria.count {
+            and {
+                eq('user', user)
+                between('dateCreated', new Date() - 1, new Date() + 1)
+                tags {
+                    eq('name', 'grails')
+                }
+            }
+            maxResults(10)
+            order('dateCreated', 'desc')
+        }
+
+        expect: 1 == result
+    }
+
+    void "test criterias with method"() {
+        def user = new User(userId: 'glen', password: 'password').save()
+        def post = new Post(content: 'Bla', dateCreated: new Date())
+        def tag = new Tag(name: 'grails')
+
+        post.addToTags tag
+        user.addToPosts post
+        user.addToTags tag
+
+        def result = Post.withCriteria() {
+            and {
+                eq('user', user)
+                between('dateCreated', new Date() - 1, new Date() + 1)
+                tags {
+                    eq('name', 'grails')
+                }
+            }
+            maxResults(10)
+            order('dateCreated', 'desc')
+        }
+
+        expect: [post].equals result
     }
 }
