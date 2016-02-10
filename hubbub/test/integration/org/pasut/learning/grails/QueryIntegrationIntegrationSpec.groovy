@@ -40,4 +40,12 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
         and: 'cynthia'.equals u2.userId
         and: ['glen', 'peter'].equals u3*.userId
     }
+
+    void "test los atributos que se le puede pasar a list"() {
+        new User(userId: 'glen', password: 'password').save()
+        new User(userId: 'peter', password: 'password').save()
+        new User(userId: 'cynthia', password: 'sesame').save()
+        def users = User.list([sort: 'userId', order: 'asc', max: 2, fetch: [posts: 'eager']])
+        expect: ['cynthia', 'glen'].equals users*.userId
+    }
 }
