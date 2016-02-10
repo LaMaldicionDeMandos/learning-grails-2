@@ -198,4 +198,14 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
 
         def tagcloudMap = result.inject([ : ]) { map, _tag -> map[ _tag[0] ] = _tag[1]; map }
     }
+
+    void "test using HQL"() {
+        new User(userId: 'glen', password: 'password').save()
+        new User(userId: 'peter', password: 'password').save()
+        new User(userId: 'cynthia', password: 'sesame').save()
+        def users = User.findAll('from User u where u.password = ? order by userId', ['password'])
+        expect: ['glen', 'peter'].equals users*.userId
+        def user = User.find('from User u where u.password = ?', ['sesame'])
+        and: 'cynthia'.equals user.userId
+    }
 }
