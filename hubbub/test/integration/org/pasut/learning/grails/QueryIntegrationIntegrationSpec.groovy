@@ -64,4 +64,29 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
         def c = User.countByPassword('password')
         expect: 2 == c
     }
+
+    void "test criterias"() {
+        def user = new User(userId: 'glen', password: 'password').save()
+        def post = new Post(content: 'Bla', dateCreated: new Date())
+        def tag = new Tag(name: 'grails')
+
+        post.addToTags tag
+        user.addToPosts post
+        user.addToTags tag
+
+        def criteria = Post.createCriteria()
+        def posts = criteria.list {
+            and {
+                eq('user', user)
+                between('dateCreated', new Date() - 1, new Date() + 1)
+                tags {
+                    eq('name', 'grails')
+                }
+            }
+            maxResults(10)
+            order('dateCreated', 'desc')
+        }
+
+        expect: [post].equals posts
+    }
 }
