@@ -163,4 +163,39 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
 
         expect: [post].equals result
     }
+
+    void "test criterias define alias y projection"() {
+        def user = new User(userId: 'glen', password: 'password').save()
+        def post = new Post(content: 'Bla', dateCreated: new Date())
+        def tag = new Tag(name: 'grails')
+
+        post.addToTags tag
+        user.addToPosts post
+        user.addToTags tag
+
+        def post2 = new Post(content: 'Ble', dateCreated: new Date())
+        post2.addToTags tag
+        user.addToPosts post2
+
+        def post3 = new Post(content: 'Bli', dateCreated: new Date())
+        def tag2 = new Tag(name: 'rails')
+        post2.addToTags tag2
+        user.addToPosts post3
+        user.addToTags tag2
+
+        def result = Post.withCriteria() {
+            createAlias('user', 'u')
+            createAlias('tags', 't')
+            eq('u.userId', 'glen')
+            order('t.name')
+            projections {
+                groupProperty('t.name')
+                count("t.id")
+            }
+        }
+
+        expect: [['grails', 2], ['rails', 1]].equals result
+
+        def tagcloudMap = result.inject([ : ]) { map, _tag -> map[ _tag[0] ] = _tag[1]; map }
+    }
 }
