@@ -48,4 +48,20 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
         def users = User.list([sort: 'userId', order: 'asc', max: 2, fetch: [posts: 'eager']])
         expect: ['cynthia', 'glen'].equals users*.userId
     }
+
+    void "test metodo listOrderBy"() {
+        new User(userId: 'glen', password: 'password').save()
+        new User(userId: 'peter', password: 'password').save()
+        new User(userId: 'cynthia', password: 'sesame').save()
+        def users = User.listOrderByUserId()
+        expect: ['cynthia', 'glen', 'peter'].equals users*.userId
+    }
+
+    void "test metodo countBy"() {
+        new User(userId: 'glen', password: 'password').save()
+        new User(userId: 'peter', password: 'password').save()
+        new User(userId: 'cynthia', password: 'sesame').save()
+        def c = User.countByPassword('password')
+        expect: 2 == c
+    }
 }
