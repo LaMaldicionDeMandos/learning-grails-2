@@ -26,6 +26,18 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
         and: 1.equals profiles.size()
     }
 
+    void "test query con paginacion"() {
+        new User(userId: 'glen', password: 'password').save()
+        new User(userId: 'peter', password: 'password').save()
+        new User(userId: 'cynthia', password: 'sesame').save()
+        def users = User.list([max: 2, offset: 0, sort: 'userId'])
+        expect: ['cynthia', 'glen'].equals users*.userId
+        def users2 = User.list([max: 2, offset: 1, sort: 'userId'])
+        and: ['glen', 'peter'].equals users2*.userId
+        def users3 = User.list([max: 2, offset: 2, sort: 'userId'])
+        and: ['peter'].equals users3*.userId
+    }
+
     void "test query by example"() {
         new User(userId: 'glen', password: 'password').save()
         new User(userId: 'peter', password: 'password').save()
@@ -207,5 +219,7 @@ class QueryIntegrationIntegrationSpec extends IntegrationSpec {
         expect: ['glen', 'peter'].equals users*.userId
         def user = User.find('from User u where u.password = ?', ['sesame'])
         and: 'cynthia'.equals user.userId
+        def users2 = User.findAll('from User u where u.password = :pass order by userId', [pass: 'password'])
+        and: ['glen', 'peter'].equals users2*.userId
     }
 }
