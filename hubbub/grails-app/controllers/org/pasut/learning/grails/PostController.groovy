@@ -19,6 +19,7 @@ class PostController {
 
     def addPost = {
         try {
+            log.debug "Creating a new Post: ${params.content} to user: ${params.id}"
             def newPost = postService.createPost(params.id, params.content)
             flash.message = "Added new Post ${newPost.content}."
         } catch(PostException e) {
