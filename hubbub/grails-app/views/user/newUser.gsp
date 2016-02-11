@@ -31,6 +31,11 @@
             <dd><g:textField name="profile.bio" value="${user?.profile?.bio}"/></dd>
             <dt>Email</dt>
             <dd><g:textField name="profile.email" value="${user?.profile?.email}"/></dd>
+            <g:hasErrors bean="${user}" field="profile.email">
+                <g:eachError bean="${user}" field="profile.email">
+                    <p style="color: red"><g:message error="${it}" /></p>
+                </g:eachError>
+            </g:hasErrors>
             <dt><g:submitButton name="register" value="Register"/></dt>
         </dl>
     </g:form>
