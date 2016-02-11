@@ -1,5 +1,33 @@
 package org.pasut.learning.grails
 
+class UserRegistrationCommand {
+    String userId
+    String password
+    String passwordRepeat
+    byte[] photo
+    String fullName
+    String bio
+    String homepage
+    String email
+    String timezone
+    String country
+    String jabberAddress
+
+    static constraints = {
+        userId(size: 3..20)
+        password(size: 6..8, blank: false, validator: { pass, urc -> pass.equals(urc.userId) })
+        passwordRepeat(nullable: false, validator: { pass2, urc -> pass2.equals(urc.password)})
+        fullName(nullable: true)
+        bio(nullable: true, maxSize: 1000)
+        homepage(nullable: true, url: true)
+        email(nullable: true, email: true)
+        photo(nullable: true)
+        country(nullable: true)
+        timezone(nullable: true)
+        jabberAddress(email: true, nullable: true)
+    }
+}
+
 class UserController {
     def scaffold = true
 
