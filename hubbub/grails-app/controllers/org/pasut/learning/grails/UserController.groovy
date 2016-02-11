@@ -22,7 +22,7 @@ class UserController {
             redirect(controller: 'post', action: 'timeline', id: user.userId)
         } else {
             flash.message = "Error registerin user"
-            return [user: user]
+            return render(view:'newUser', model: [user:user])
         }
     }
 
