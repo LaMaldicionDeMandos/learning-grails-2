@@ -69,6 +69,11 @@ class UserController {
         }
     }
 
+    def profile = {
+        def user = User.findByUserId(params.id)
+        [userId: params.id, profile: user.profile]
+    }
+
     def advResults = {
         def profileProps = Profile.metaClass.properties*.name
         def profiles = Profile.withCriteria {

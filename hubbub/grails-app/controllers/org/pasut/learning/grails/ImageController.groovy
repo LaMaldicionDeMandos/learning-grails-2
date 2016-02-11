@@ -12,7 +12,19 @@ class ImageController {
     def upload = {PhotoUploadCommand command ->
         def user = User.findByUserId(command.userId)
         user.profile.photo = command.photo
-        redirect(action: 'view', id: command.userId)
+        user.profile.save()
+        user.save([flush: true])
+        redirect(controller: 'user', action: 'profile', id: command.userId)
+    }
+
+    def renderImage = {
+        def user = User.findByUserId(params.id)
+        if (user?.profile?.photo) {
+            response.setContentLength(user.profile.photo.length)
+            response.outputStream.write(user.profile.photo)
+        } else {
+            response.sendError(404)
+        }
     }
 
     def rawUpload = {

@@ -18,7 +18,7 @@ class Profile {
 		bio(nullable: true, maxSize: 1000)
 		homepage(nullable: true, url: true)
 		email(nullable: true, email: true)
-		photo(nullable: true)
+		photo(nullable: true, maxSize: 200000)
 		country(nullable: true)
 		timezone(nullable: true)
 		jabberAddress(nullable: true, email: true)	
