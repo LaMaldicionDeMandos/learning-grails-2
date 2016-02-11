@@ -11,7 +11,7 @@ class PostException extends RuntimeException {
 class PostService {
 
     Post createPost(String userId, String content) {
-        def user = User.findByUserId(params.id, [fetch: [posts: 'eager']])
+        def user = User.findByUserId(userId, [fetch: [posts: 'eager']])
         if (user) {
             Post post = new Post(content:content)
             post.user = user
