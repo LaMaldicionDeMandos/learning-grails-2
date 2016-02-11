@@ -54,6 +54,21 @@ class UserController {
         }
     }
 
+    def register2 = { UserRegistrationCommand urc ->
+        if (urc.hasErrors()) {
+            return render(view:'newUser', model: [user:user])
+        } else {
+            def user = new User(urc.properties)
+            user.profile = new Profile(urc.properties)
+            if (user.save()) {
+                flash.message = "Welcome aboard, ${urc.fullName ?: urc.userId}"
+                redirect(controller: 'post', action: 'timeline', id: urc.userId)
+            } else {
+                return render(view:'newUser', model: [user:user])
+            }
+        }
+    }
+
     def advResults = {
         def profileProps = Profile.metaClass.properties*.name
         def profiles = Profile.withCriteria {
