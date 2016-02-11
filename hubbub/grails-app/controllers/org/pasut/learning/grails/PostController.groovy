@@ -2,6 +2,7 @@ package org.pasut.learning.grails
 
 class PostController {
     def defaultAction = 'timeline'
+    def postService
     def scaffold = true
 
     def index = {
@@ -17,20 +18,11 @@ class PostController {
     }
 
     def addPost = {
-        def user = User.findByUserId(params.id, [fetch: [posts: 'eager']])
-        if (user) {
-            Post post = new Post(params)
-            post.user = user
-            post.save()
-            user.addToPosts(post)
-            if (user.save()) {
-                flash.message = 'Succefully created post'
-            } else {
-                user.discard()
-                flash.message = 'Invalid or empty post'
-            }
-        } else {
-            flash.message = 'Invalid User id'
+        try {
+            def newPost = postService.createPost(params.id, params.content)
+            flash.message = "Added new Post ${newPost.content}."
+        } catch(PostException e) {
+            flash.message = e.message
         }
         redirect(action: 'timeline', id: params.id)
     }
