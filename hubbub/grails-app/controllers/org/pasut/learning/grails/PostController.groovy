@@ -3,6 +3,13 @@ package org.pasut.learning.grails
 class PostController {
     def scaffold = true
 
+    def index = {
+        if (!params.id) {
+            params.id = 'admin'
+        }
+        redirect(action:'timeline', params:params)
+    }
+
     def timeline = {
         def user = User.findByUserId(params.id)
         render(view: 'timeline', model: [user: user])
