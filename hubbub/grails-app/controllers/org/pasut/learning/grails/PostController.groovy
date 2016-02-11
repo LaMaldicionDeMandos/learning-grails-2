@@ -1,6 +1,7 @@
 package org.pasut.learning.grails
 
 class PostController {
+    def defaultAction = 'timeline'
     def scaffold = true
 
     def index = {
