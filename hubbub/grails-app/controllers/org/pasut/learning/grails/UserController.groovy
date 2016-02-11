@@ -7,9 +7,23 @@ class UserController {
 
     }
 
+    def newUser = {}
+
     def results = {
         def users = User.findAllByUserIdLike("%${params.userId}%", [fetch: [posts:'lazy']])
         return [users: users, term: params.userId]
+    }
+
+    def register = {
+        def user = new User(params)
+        if(user.validate()) {
+            user.save()
+            flash.message = "Succefully Created User"
+            redirect(controller: 'post', action: 'timeline', id: user.userId)
+        } else {
+            flash.message = "Error registerin user"
+            return [user: user]
+        }
     }
 
     def advResults = {
