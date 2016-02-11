@@ -7,6 +7,8 @@ class UrlMappings {
             }
         }
 
+        "/timeline/$id"(controller: 'post', action: 'timeline')
+        "/user/$id"(controller: 'user', action: 'profile')
         "/"(view:"/index")
         "500"(view:'/error')
 	}
