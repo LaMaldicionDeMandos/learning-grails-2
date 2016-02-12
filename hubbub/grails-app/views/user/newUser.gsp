@@ -38,6 +38,9 @@
             </g:hasErrors>
             <dt>Country</dt>
             <dd><g:countrySelect name="country" noSelection="['':'Choose your country...']" /></dd>
+            <dt>Timezone</dt>
+            <dd><g:timeZoneSelect name="timezone"/></dd>
+
             <dt><g:submitButton name="register" value="Register"/></dt>
         </dl>
     </g:form>
