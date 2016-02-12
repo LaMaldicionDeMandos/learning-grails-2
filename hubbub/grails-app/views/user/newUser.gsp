@@ -36,6 +36,8 @@
                     <p style="color: red"><g:message error="${it}" /></p>
                 </g:eachError>
             </g:hasErrors>
+            <dt>Country</dt>
+            <dd><g:countrySelect name="country" noSelection="['':'Choose your country...']" /></dd>
             <dt><g:submitButton name="register" value="Register"/></dt>
         </dl>
     </g:form>
