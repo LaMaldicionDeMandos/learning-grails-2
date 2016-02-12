@@ -25,12 +25,14 @@
         </p>
     </div>
     <div class="allPosts">
+        ${user.posts.size()}
         <g:each var="post" in="${user.posts}">
             <div class="postEntry">
                 <div class="postText">${post.content}</div>
                 <div class="postDate">${post.dateCreated}</div>
             </div>
         </g:each>
+        <g:paginate total="${user.posts.size()}" max="2"/>
     </div>
 <g:if test="${flash.message}"> <div class="flash">
     ${flash.message}
