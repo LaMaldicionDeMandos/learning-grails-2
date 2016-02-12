@@ -10,6 +10,7 @@ class UrlMappings {
         "/timeline/$id"(controller: 'post', action: 'timeline')
         "/user/$id"(controller: 'user', action: 'profile')
         "/"(view:"/index")
-        "500"(view:'/error')
+        "500"(view:'/errors')
+        "404"(view:'/errors')
 	}
 }

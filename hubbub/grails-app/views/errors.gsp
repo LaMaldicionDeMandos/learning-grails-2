@@ -6,12 +6,13 @@
 		<g:if env="development"><asset:stylesheet src="errors.css"/></g:if>
 	</head>
 	<body>
+		<h1>Errors!</h1>
 		<g:if env="development">
 			<g:renderException exception="${exception}" />
 		</g:if>
 		<g:else>
 			<ul class="errors">
-				<li>An error has occurred</li>
+				<li>An error has occurred!!!!</li>
 			</ul>
 		</g:else>
 	</body>
