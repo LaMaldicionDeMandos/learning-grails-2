@@ -12,6 +12,12 @@ class PostController {
         redirect(action:'timeline', params:params)
     }
 
+    def home = {
+        def posts = Post.list(params)
+        def size = Post.count()
+        [posts: posts, postsSize: size]
+    }
+
     def timeline = {
         def user = User.findByUserId(params.id)
         render(view: 'timeline', model: [user: user])
