@@ -1,6 +1,11 @@
 package org.pasut.learning.grails
 
 class DateTagLib {
-    static defaultEncodeAs = [taglib:'html']
-    //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
+    static final namespace = 'h'
+    def dateFromNow = { attrs ->
+        def date = attrs.date
+        def niceDate = "Ahora!!"
+
+        out << niceDate
+    }
 }

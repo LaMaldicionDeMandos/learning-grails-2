@@ -29,7 +29,7 @@
         <g:each var="post" in="${user.posts}">
             <div class="postEntry">
                 <div class="postText">${post.content}</div>
-                <div class="postDate">${post.dateCreated}</div>
+                <div class="postDate"><h:dateFromNow date="${post.dateCreated}" /></div>
             </div>
         </g:each>
         <g:paginate total="${user.posts.size()}" max="2"/>
