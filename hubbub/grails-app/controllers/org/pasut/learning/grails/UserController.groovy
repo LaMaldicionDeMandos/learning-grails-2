@@ -69,6 +69,11 @@ class UserController {
         }
     }
 
+    def profile2 = {
+        def user = User.findByUserId(params.userId)
+        [userId: params.userId, profile: user.profile]
+    }
+
     def profile = {
         def user = User.findByUserId(params.id)
         [userId: params.id, profile: user.profile]
