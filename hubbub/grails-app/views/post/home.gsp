@@ -13,12 +13,12 @@
 
 <body>
 <div class="allPosts">
-    <g:each var="post" in="${posts}">
+    <h:posts in="${posts}">
         <div class="postEntry">
             <div class="postText">${post.content}</div>
             <div class="postDate"><h:dateFromNow date="${post.dateCreated}" ></h:dateFromNow></div>
         </div>
-    </g:each>
+    </h:posts>
     <g:paginate total="${postsSize}" max="2"/>
 </div>
 </body>
