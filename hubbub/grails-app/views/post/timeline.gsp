@@ -10,6 +10,7 @@
 <head>
     <title>Timeline for ${user.profile.fullName}</title>
     <meta name="layout" content="main" />
+    <link rel="stylesheet" href="<g:createLinkTo dir='css' file='${user.profile.skin}.css'/>">
 </head>
 
 <body>

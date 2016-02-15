@@ -12,6 +12,7 @@ class UserRegistrationCommand {
     String timezone
     String country
     String jabberAddress
+    String skin
 
     static constraints = {
         userId(size: 3..20)
@@ -25,6 +26,7 @@ class UserRegistrationCommand {
         country(nullable: true)
         timezone(nullable: true)
         jabberAddress(email: true, nullable: true)
+        skin(nullable: true, blank: true, inList: skins)
     }
 }
 
@@ -35,7 +37,9 @@ class UserController {
 
     }
 
-    def newUser = {}
+    def newUser = {
+        [skins: Profile.skins]
+    }
 
     def results = {
         def users = User.findAllByUserIdLike("%${params.userId}%", [fetch: [posts:'lazy']])
