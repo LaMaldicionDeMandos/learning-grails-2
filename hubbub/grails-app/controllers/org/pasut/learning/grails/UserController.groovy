@@ -33,6 +33,12 @@ class UserRegistrationCommand {
 class UserController {
     def scaffold = true
 
+    static navigation = [
+            [group: 'tabs', action: 'search', title: 'My Timeline', order: 90],
+            [action: 'adbSearch', title: 'Advanced Search', order: 95],
+            [action: 'newUser', title: 'Register', order: 99, isVisible: {true}]
+    ]
+
     def search = {
 
     }

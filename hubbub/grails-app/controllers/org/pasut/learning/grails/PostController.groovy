@@ -1,6 +1,11 @@
 package org.pasut.learning.grails
 
 class PostController {
+    static navigation = [
+            [group: 'tabs', action: 'timeline', title: 'My Timeline', order: 0],
+            [action: 'home', title: 'Global Timeline', order: 1]
+    ]
+
     def defaultAction = 'timeline'
     PostService postService
     def scaffold = true
