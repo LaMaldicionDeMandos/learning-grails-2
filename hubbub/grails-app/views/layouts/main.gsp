@@ -27,7 +27,7 @@
 			<g:layoutBody />
 		</div>
 		<div id="ft">
-			<div id="footerText">Hubbub - Social Networking on Grails</div>
+			<div id="footerText">Hubbub - Social Networking on Grails Version <g:meta name="app.version" /></div>
 		</div>
 	</body>
 </html>
