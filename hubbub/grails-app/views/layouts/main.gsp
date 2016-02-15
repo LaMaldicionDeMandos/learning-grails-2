@@ -35,7 +35,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="yui-b">ALGO</div>
+			<div class="yui-b">
+				<g:render template="/sidebar" />
+			</div>
 		</div>
 
 		<div id="ft">
