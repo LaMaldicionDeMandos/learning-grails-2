@@ -6,6 +6,12 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+        "/" {
+            controller = 'post'
+            action = 'home'
+            offset = { params.offset ?: 0 }
+            max = { params.max ?: 2 }
+        }
         "/profile2/$userId"(controller: 'user', action: 'profile2')
         "/timeline/$id"(controller: 'post', action: 'timeline')
         "/newUser"(controller: 'user', action: 'newUser')
