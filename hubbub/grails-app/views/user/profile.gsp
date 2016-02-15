@@ -12,10 +12,10 @@
 </head>
 
 <body>
+
     <div>
-        <g:if test="${profile.photo}">
-            <img src="<g:createLink controller='image' action='renderImage' id='${userId}'/>" />
-        </g:if>
+        <h:tinyThumbnail userId="${userId}" />
+        <br/>
         <p>Profile for <strong>${profile.fullName}</strong></p>
         <p>Bio: ${profile.bio}</p>
     </div>
