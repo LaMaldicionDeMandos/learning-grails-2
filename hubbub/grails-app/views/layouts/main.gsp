@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="yui-b">
-				<g:render template="/sidebar" />
+				<g:render template="/sidebar" model="[defaultUserId: 'admin']"/>
 			</div>
 		</div>
 

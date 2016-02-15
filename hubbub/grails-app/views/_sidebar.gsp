@@ -3,7 +3,7 @@
     <div id="loginForm">
         <g:form controller="login">
             <ul>
-                <li>User Id: <g:textField name="userId" size="12" /></li>
+                <li>User Id: <g:textField name="userId" size="12" value="$defaultUserId"/></li>
                 <li>Password: <g:passwordField name="password" size="12" /></li>
                 <li><g:submitButton name="login" value="Login" /></li>
             </ul>
