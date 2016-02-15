@@ -7,6 +7,9 @@
 	</head>
 	<body>
 		<h1>Errors!</h1>
+		<h:lameBrowser userAgent="MSIE">
+			<p>Dude, Firefox really is better. No, really.</p>
+		</h:lameBrowser>
 		<g:if env="development">
 			<g:renderException exception="${exception}" />
 		</g:if>
