@@ -38,4 +38,18 @@ class PostController {
         }
         redirect(action: 'timeline', id: params.id)
     }
+
+    def addAjaxPost = {
+        try {
+            def user = User.findByUserId(params.userId)
+            log.debug "Creating a new Post: ${params.content} to user: ${params.userId}"
+            def newPost = postService.createPost(params.userId, params.content)
+            flash.message = "Added new Post ${newPost.content}."
+            def recentPosts = Post.findAllByUser(user, [sort: 'dateCreated', order: 'desc', max: 20])
+            render { div('Updated') }
+        } catch(PostException e) {
+            flash.message = e.message
+            render {div(class:"errors", e.message)}
+        }
+    }
 }
