@@ -18,8 +18,10 @@
 		<g:external dir="css" file="main.css"/>
 		<asset:javascript src="application.js"/>
 		<g:layoutHead/>
+		<g:resources />
 	</head>
 	<body>
+
 		<div id="doc3" class="yui-t4">
 			<div id="hd">
 				<a href="<g:createLinkTo dir='/'/>">

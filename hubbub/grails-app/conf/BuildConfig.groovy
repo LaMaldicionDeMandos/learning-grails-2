@@ -65,6 +65,8 @@ grails.project.dependency.resolution = {
         //No anda con versiones nuevas de grails
         //compile ":navigation:1.3.2"
 
+        compile "org.grails.plugins:platform-core:1.0.0"
+
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.8.1" // or ":hibernate:3.6.10.18"
