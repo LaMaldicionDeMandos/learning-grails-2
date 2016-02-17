@@ -24,6 +24,19 @@
         var spinner = $('spinner');
         var style = spinner.css('display', visible ? 'inline' : 'none');
     }
+
+    function toggleTinyUrl() {
+        var toggleText = $('showHideUrl');
+        if ($('tinyUrl').css('display') == 'none') {
+            $('tinyUrl').slideDown('slow', function() {
+                toggleText.text('Hide TinyURL');
+            });
+        } else {
+            $('tinyUrl').slideUp('slow', function() {
+                toggleText.text('Show TinyURL');
+            });
+        }
+    }
 </g:javascript>
     <h1>Timeline for ${user.profile.fullName}</h1>
     <div id="newPost">
@@ -39,8 +52,15 @@
                 <g:textArea id="postContent" name="content" rows="3" cols="50" />
                 <br />
                 <g:submitButton name="post" value="Post"/>
+                <a href="#" id="showHideUrl" onclick="return toggleTinyUrl()">Show Tiny Url</a>
                 <img id="spinner" style="display: none" src="<g:createLinkTo dir='/images/' file='spinner.gif'/>"/>
             </g:formRemote>
+            <div id="tinyUrl" style="display: none;">
+                <g:formRemote name="tinyUrl" url="[action:'tinyUrl', onSuccess:'addTinyUrl(data)']">
+                    Tiny Url: <g:textField name="fullUrl" />
+                <g:submitButton name="tiny" value="Make Tiny" />
+                </g:formRemote>
+            </div>
         </p>
     </div>
     <div id="allPosts" class="allPosts">
