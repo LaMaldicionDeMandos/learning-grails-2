@@ -15,6 +15,24 @@ class UserSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "test contraints"() {
+        def will = new User(userId: 'William')
+
+        //Esto agrega el metodo validate a la clase, y el resto de las cosas de grails
+        mockForConstraintsTests(User, [will])
+
+        def user = new User()
+
+        def valid = user.validate()
+
+        def other = new User(userId: 'william', password: 'william')
+        other.validate()
+
+        expect: !valid
+        and: 'nullable'.equals user.errors['userId']
+        and: 'nullable'.equals user.errors['password']
+        and: 'validator'.equals other.errors['password']
+
+        // Etc...
     }
 }
