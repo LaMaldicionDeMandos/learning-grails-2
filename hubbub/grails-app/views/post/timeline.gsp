@@ -37,6 +37,10 @@
             });
         }
     }
+
+    function logResult(data) {
+        console.log(JSON.stringify(data));
+    }
 </g:javascript>
     <h1>Timeline for ${user.profile.fullName}</h1>
     <div id="newPost">
@@ -61,6 +65,14 @@
                 <g:submitButton name="tiny" value="Make Tiny" />
                 </g:formRemote>
             </div>
+        <g:formRemote name="${params.id}"
+                      url="[controller: 'post', action: 'addAjaxPostWithJson']"
+                      onSuccess="logResult(data)">
+            <g:hiddenField name="userId" value="${params.id}" />
+            <g:textArea id="postContent" name="content" rows="3" cols="50" />
+            <br />
+            <g:submitButton name="post" value="Post With JSON"/>
+        </g:formRemote>
         </p>
     </div>
     <div id="allPosts" class="allPosts">

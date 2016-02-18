@@ -52,4 +52,20 @@ class PostController {
             render {div(class:"errors", e.message)}
         }
     }
+
+    def addAjaxPostWithJson = {
+        try {
+            def user = User.findByUserId(params.userId)
+            log.debug "Creating a new Post: ${params.content} to user: ${params.userId}"
+            def newPost = postService.createPost(params.userId, params.content)
+            flash.message = "Added new Post ${newPost.content}."
+            def recentPosts = Post.findAllByUser(user, [sort: 'dateCreated', order: 'desc', max: 20])
+            render(contentType: 'application/json') {
+                recentPosts
+            }
+        } catch(PostException e) {
+            flash.message = e.message
+            render {div(class:"errors", e.message)}
+        }
+    }
 }
